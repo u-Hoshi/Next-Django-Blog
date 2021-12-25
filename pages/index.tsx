@@ -20,7 +20,7 @@ const BlogPage: React.FC<STATICPOROS> = ({ posts }) => {
   }
 
   const deletePost = async (id: number) => {
-    await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}/get-blogs/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}/delete-blog/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `JWT ${cookie.get('access_token')}`,
@@ -45,7 +45,7 @@ const BlogPage: React.FC<STATICPOROS> = ({ posts }) => {
         {posts &&
           posts.map((post) => (
             <li key={post.id}>
-              <Link href={`posts/${post.id}`}>
+              <Link href={`/posts/${post.id}`}>
                 <a className="cursor-pointer border-b border-gray-500 hover:bg-gray-300">
                   {post.title}
                 </a>
@@ -54,11 +54,11 @@ const BlogPage: React.FC<STATICPOROS> = ({ posts }) => {
                 <svg
                   onClick={() => deletePost(post.id)}
                   data-testid={`btn-${post.id}`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mt-10 cursor-pointer float-right"
+                  className="w-6 h-6 ml-10 float-right cursor-pointer"
                   fill="none"
-                  viewBox="0 0 24 24"
                   stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     strokeLinecap="round"
@@ -75,11 +75,11 @@ const BlogPage: React.FC<STATICPOROS> = ({ posts }) => {
         <svg
           data-testid="logout-icon"
           onClick={logout}
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 mt-10 cursor-pointer"
+          className="w-6 h-6 mt-10 cursor-pointer"
           fill="none"
-          viewBox="0 0 24 24"
           stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             strokeLinecap="round"

@@ -1,12 +1,12 @@
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Cookie from 'universal-cookie'
 import axios from 'axios'
-import React, { FormEvent, useState } from 'react'
 
 const cookie = new Cookie()
 
 const Auth: React.FC = () => {
-  const router = useRouter() // 関数内でページ遷移させる
+  const router = useRouter()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [isLogin, setIsLogin] = useState(true)
@@ -15,7 +15,7 @@ const Auth: React.FC = () => {
   const login = async () => {
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_RESTAPI_URL}/jwt/create`,
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}/jwt/create/`,
         { username: username, password: password },
         {
           headers: {
@@ -32,15 +32,14 @@ const Auth: React.FC = () => {
       setError('Login Error')
     }
   }
-
-  const authUser = async (e: FormEvent<HTMLFormElement>) => {
+  const authUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (isLogin) {
       login()
     } else {
       try {
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_RESTAPI_URL}/register`,
+          `${process.env.NEXT_PUBLIC_RESTAPI_URL}/register/`,
           { username: username, password: password },
           {
             headers: {
@@ -50,7 +49,7 @@ const Auth: React.FC = () => {
         )
         if (res.status === 201) login()
       } catch {
-        setError('Register Error')
+        setError('Registration Error')
       }
     }
   }
@@ -108,5 +107,4 @@ const Auth: React.FC = () => {
     </>
   )
 }
-
 export default Auth
